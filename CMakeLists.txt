@@ -13,6 +13,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets LinguistTools REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets LinguistTools REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Sql)
 
 set(TS_FILES SpendingTracker_hu_HU.ts)
 
@@ -21,6 +22,13 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
+        list_form.h
+        list_form.cpp
+        list_form.ui
+        item.h
+        item.cpp
+        itemlist.h
+        itemlist.cpp
         ${TS_FILES}
 )
 
@@ -51,7 +59,7 @@ else()
     qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 endif()
 
-target_link_libraries(SpendingTracker PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(SpendingTracker PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Sql)
 
 set_target_properties(SpendingTracker PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

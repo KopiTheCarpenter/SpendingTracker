@@ -1,0 +1,5 @@
+Create config file:
+    - to set DB_Folder
+    - to set default DB_file
+Create database selector page.
+    - Select Folder add/remove databases to that profile from like a listview.
