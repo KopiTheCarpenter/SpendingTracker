@@ -33,6 +33,10 @@ private slots:
 
     void on_actionSumm_Expenditures_triggered();
 
+    void on_actionSumm_Expenditures_thi_month_triggered();
+
+    void on_actionSumm_Expenditures_this_year_triggered();
+
 private:
     Ui::MainWindow *ui;
 

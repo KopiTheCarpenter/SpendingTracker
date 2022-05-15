@@ -6,6 +6,7 @@
 #include <QDir>
 #include <QCoreApplication>
 #include <QSqlQuery>
+#include <QDate>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -82,6 +83,39 @@ void MainWindow::on_actionSumm_Expenditures_triggered()
     query.exec("Select SUM(value) from expenditures;");
     query.first();
     qmb.setText("Total Expenditure value: "+query.value(0).toString());
+    qmb.exec();
+    dbc.closeDatabase();
+}
+
+
+void MainWindow::on_actionSumm_Expenditures_thi_month_triggered()
+{
+    QMessageBox qmb;
+    dbc.connectToDatabase();
+    QSqlQuery query;
+    QDate now = QDate::currentDate();
+    query.prepare("Select SUM(value) from expenditures where year = ? AND month = ?;");
+    query.addBindValue(now.year());
+    query.addBindValue(now.month());
+    query.exec();
+    query.first();
+    qmb.setText("Total Expenditure value this month: "+query.value(0).toString());
+    qmb.exec();
+    dbc.closeDatabase();
+}
+
+
+void MainWindow::on_actionSumm_Expenditures_this_year_triggered()
+{
+    QMessageBox qmb;
+    dbc.connectToDatabase();
+    QSqlQuery query;
+    QDate now = QDate::currentDate();
+    query.prepare("Select SUM(value) from expenditures where year = ?;");
+    query.addBindValue(now.year());
+    query.exec();
+    query.first();
+    qmb.setText("Total Expenditure value this year: "+query.value(0).toString());
     qmb.exec();
     dbc.closeDatabase();
 }
