@@ -28,32 +28,27 @@ void MainWindow::on_actionAbout_triggered()
 
 void MainWindow::on_actionSelect_database_triggered()
 {
-    file_path =  QFileDialog::getOpenFileName(this, "Choose profile to be loaded!"),application_location+"/databases/";
-    ui->VALAMIKELL->setText(application_location+"/databases/");
+    file_path =  QFileDialog::getOpenFileName(this, "Choose database to be loaded!",MyConfig::APPLICATION_LOCATION+"/databases/","*.db");
+    ui->VALAMIKELL->setText(MyConfig::APPLICATION_LOCATION+"/databases/");
     if (!file_path.isEmpty())
         {
-            db = QSqlDatabase::addDatabase("QSQLITE");
-            db.setDatabaseName(file_path);
-            //db.setHostName("bigblue");
-            //db.setUserName("acarlson");
-            //db.setPassword("1uTbSbAs");
-            bool db_ok = db.open();
+            MyConfig::DB_URL = file_path;
+            bool db_ok = dbc.connectToDatabase(file_path);
             QMessageBox msgBox;
             if(!db_ok){
-                msgBox.setText("Error connecting to sqlite database: " + file_path);
+                msgBox.setText("Error connecting to sqlite database: " + MyConfig::DB_URL);
                 msgBox.exec();
             }
             else{
                 msgBox.setText("Connected to sqlite database: " + file_path);
                 msgBox.exec();
             }
-            db.close();
         }
 }
 
 void MainWindow::on_actionCreate_database_triggered()
 {
-    QDir dir(application_location+ "/databases/");
+    QDir dir(MyConfig::APPLICATION_LOCATION+ "/databases/");
     if (!dir.exists()){
       dir.mkpath(".");
     }
@@ -64,5 +59,14 @@ void MainWindow::on_actionCreate_database_triggered()
     QFile file(strFile);
     file.open(QIODevice::WriteOnly);
     file.close();
+    dbc.connectToDatabase(strFile);
+    dbc.createSchema();
+}
+
+
+void MainWindow::on_actionAdd_Expenditure_triggered()
+{
+    aedf.setAttribute(Qt::WA_DeleteOnClose);
+    aedf.show();
 }
 

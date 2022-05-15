@@ -22,13 +22,11 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
-        list_form.h
-        list_form.cpp
-        list_form.ui
-        item.h
-        item.cpp
-        itemlist.h
-        itemlist.cpp
+        databasecontroller.h databasecontroller.cpp
+        expenditure.h expenditure.cpp
+        add_expenditures_form.h add_expenditures_form.cpp add_expenditures_form.ui
+        add_income_form.h add_income_form.cpp add_income_form.ui
+        myconfig.cpp
         ${TS_FILES}
 )
 

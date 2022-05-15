@@ -73,7 +73,10 @@
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="actionAdd_Expenditure"/>
+    <addaction name="actionAdd_Income"/>
     <addaction name="separator"/>
+    <addaction name="actionList_Expenditures"/>
     <addaction name="separator"/>
     <addaction name="actionAbout"/>
    </widget>
@@ -101,6 +104,21 @@
   <action name="actionSelect_database">
    <property name="text">
     <string>Select database</string>
+   </property>
+  </action>
+  <action name="actionAdd_Expenditure">
+   <property name="text">
+    <string>Add Expenditure</string>
+   </property>
+  </action>
+  <action name="actionAdd_Income">
+   <property name="text">
+    <string>Add Income</string>
+   </property>
+  </action>
+  <action name="actionList_Expenditures">
+   <property name="text">
+    <string>List Expenditures</string>
    </property>
   </action>
  </widget>
