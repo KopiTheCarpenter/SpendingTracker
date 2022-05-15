@@ -5,6 +5,7 @@
 #include <QFileDialog>
 #include <QDir>
 #include <QCoreApplication>
+#include <QSqlQuery>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -32,10 +33,12 @@ void MainWindow::on_actionSelect_database_triggered()
 {
     QDir dir(MyConfig::APPLICATION_LOCATION+ "/databases/");
     file_path =  QFileDialog::getOpenFileName(this, "Choose database to be loaded!",dir.absolutePath(),"*.db");
-    ui->VALAMIKELL->setText(MyConfig::APPLICATION_LOCATION+"/databases/");
     if (!file_path.isEmpty())
         {
             MyConfig::DB_URL = file_path;
+            QMessageBox qmb;
+            qmb.setText("Database choosen: "+MyConfig::DB_URL);
+            qmb.exec();
         }
 }
 
@@ -61,5 +64,25 @@ void MainWindow::on_actionAdd_Expenditure_triggered()
 {
     aedf.setAttribute(Qt::WA_QuitOnClose);
     aedf.show();
+}
+
+
+void MainWindow::on_actionList_Expenditures_triggered()
+{
+    ledf.setAttribute(Qt::WA_QuitOnClose);
+    ledf.show();
+}
+
+
+void MainWindow::on_actionSumm_Expenditures_triggered()
+{
+    QMessageBox qmb;
+    dbc.connectToDatabase();
+    QSqlQuery query;
+    query.exec("Select SUM(value) from expenditures;");
+    query.first();
+    qmb.setText("Total Expenditure value: "+query.value(0).toString());
+    qmb.exec();
+    dbc.closeDatabase();
 }
 

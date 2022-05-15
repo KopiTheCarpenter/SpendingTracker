@@ -38,15 +38,7 @@
      <height>768</height>
     </size>
    </property>
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <widget class="QLabel" name="VALAMIKELL">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
+   <layout class="QGridLayout" name="gridLayout"/>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -76,6 +68,7 @@
     <addaction name="actionAdd_Expenditure"/>
     <addaction name="actionAdd_Income"/>
     <addaction name="separator"/>
+    <addaction name="actionSumm_Expenditures"/>
     <addaction name="actionList_Expenditures"/>
     <addaction name="separator"/>
     <addaction name="actionAbout"/>
@@ -122,6 +115,11 @@
   <action name="actionList_Expenditures">
    <property name="text">
     <string>List Expenditures</string>
+   </property>
+  </action>
+  <action name="actionSumm_Expenditures">
+   <property name="text">
+    <string>Summ Expenditures</string>
    </property>
   </action>
  </widget>

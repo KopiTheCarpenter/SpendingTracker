@@ -4,6 +4,7 @@
 #include "myconfig.cpp"
 #include "add_expenditures_form.h"
 #include "databasecontroller.h"
+#include "list_expenditures_form.h"
 
 
 #include <QMainWindow>
@@ -28,12 +29,17 @@ private slots:
     void on_actionCreate_database_triggered();
 
     void on_actionAdd_Expenditure_triggered();
+    void on_actionList_Expenditures_triggered();
+
+    void on_actionSumm_Expenditures_triggered();
+
 private:
     Ui::MainWindow *ui;
 
 
 public:
     Add_Expenditures_form aedf;
+    List_Expenditures_form ledf;
 private:
     QString file_path;
     DatabaseController dbc;
