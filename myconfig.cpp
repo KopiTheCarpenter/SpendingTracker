@@ -1,4 +1,3 @@
-#include <QCoreApplication>
 #include <QString>
 
 class MyConfig
@@ -6,6 +5,6 @@ class MyConfig
 public:
     MyConfig();
     inline static QString DB_URL = "";
-    inline static const QString APPLICATION_LOCATION = QString(QCoreApplication::applicationDirPath());
+    inline static QString APPLICATION_LOCATION = "";
 };
 

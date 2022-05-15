@@ -1,3 +1,4 @@
+#include "myconfig.cpp"
 #include "databasecontroller.h"
 
 #include <QSqlDriver>
@@ -11,9 +12,9 @@ DatabaseController::~DatabaseController(){
     closeDatabase();
 }
 
-bool DatabaseController::connectToDatabase(QString file_path){
+bool DatabaseController::connectToDatabase(){
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(file_path);
+    db.setDatabaseName(MyConfig::DB_URL);
     return db.open();
 }
 
@@ -24,6 +25,7 @@ void DatabaseController::closeDatabase()
 
 
 bool DatabaseController::createSchema(){
+    connectToDatabase();
     if(db.isOpen()){
         QSqlQuery query;
         query.exec("create table expenditures (id integer primary key autoincrement, name varchar(50), item_type varchar(50), amount_description varchar(50), value int, amount int)");
@@ -33,23 +35,34 @@ bool DatabaseController::createSchema(){
         qDebug("Failed to open database.");
         return false;
     }
+    closeDatabase();
 }
 
 bool DatabaseController::addExpenditure(Expenditure exp)
 {
+    connectToDatabase();
     if(db.isOpen()){
         QSqlQuery query;
-        query.exec("insert into expenditures values("+exp.toInstertString()+")");
+        query.prepare("insert into expenditures (name, item_type,amount_description, value,amount)"
+                   ":name, :item_type, :amount_description, :value, :amount");
+        query.bindValue("name",exp.getName());
+        query.bindValue("item_type",exp.getItemType());
+        query.bindValue("amount_description",exp.getAmountDescription());
+        query.bindValue("value",exp.getValue());
+        query.bindValue("amount",exp.getAmount());
+        query.exec();
         return true;
     }
     else{
         qDebug("Failed to open database.");
         return false;
     }
+    closeDatabase();
 }
 
 Expenditure *DatabaseController::listExpenditures()
 {
+    //connectToDatabase();
     QSqlQuery query;
         int numRows;
         query.exec("SELECT * FROM expenditures");
@@ -74,5 +87,6 @@ Expenditure *DatabaseController::listExpenditures()
                 expenditures[i] = exp;
                 i++;
             }
+        //closeDatabase();
         return expenditures;
 }

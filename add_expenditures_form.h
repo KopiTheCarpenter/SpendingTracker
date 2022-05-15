@@ -18,10 +18,10 @@ public:
     ~Add_Expenditures_form();
 
 private slots:
-    void on_buttonBox_accepted();
 
-    void on_buttonBox_rejected();
+    void on_btn_OK_clicked();
 
+    void on_btn_Close_clicked();
 
 private:
     Ui::Add_Expenditures_form *ui;

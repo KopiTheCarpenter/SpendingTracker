@@ -24,8 +24,6 @@ public:
     void setValue(uint newValue);
     uint getAmount() const;
     void setAmount(uint newAmount);
-
-    QString toInstertString();
 };
 
 #endif // EXPENDITURE_H

@@ -16,7 +16,7 @@ Add_Expenditures_form::~Add_Expenditures_form()
     delete ui;
 }
 
-void Add_Expenditures_form::on_buttonBox_accepted()
+void Add_Expenditures_form::on_btn_OK_clicked()
 {
     QString name,itemType, amountDescription;
     uint value, amount;
@@ -26,15 +26,21 @@ void Add_Expenditures_form::on_buttonBox_accepted()
     value = ui->valueLineEdit->text().toUInt();
     amount = ui->amountLineEdit->text().toUInt();
     Expenditure exp(name,itemType,amountDescription,value,amount);
-
     QMessageBox msgBox;
-    msgBox.setText("ACCEPTED");
+    if(dbc.addExpenditure(exp)){
+        msgBox.setText("Expenditure added to database.");
+        this->close();
+    }
+    else{
+        msgBox.setText("Something went wrong.");
+    }
+    msgBox.exec();
+
 }
 
 
-void Add_Expenditures_form::on_buttonBox_rejected()
+void Add_Expenditures_form::on_btn_Close_clicked()
 {
-    QMessageBox msgBox;
-    msgBox.setText("REJECTED");
+    this->close();
 }
 

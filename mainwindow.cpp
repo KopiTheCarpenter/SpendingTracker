@@ -4,12 +4,14 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QDir>
+#include <QCoreApplication>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    MyConfig::APPLICATION_LOCATION = QCoreApplication::applicationDirPath();
 }
 
 MainWindow::~MainWindow()
@@ -28,21 +30,12 @@ void MainWindow::on_actionAbout_triggered()
 
 void MainWindow::on_actionSelect_database_triggered()
 {
-    file_path =  QFileDialog::getOpenFileName(this, "Choose database to be loaded!",MyConfig::APPLICATION_LOCATION+"/databases/","*.db");
+    QDir dir(MyConfig::APPLICATION_LOCATION+ "/databases/");
+    file_path =  QFileDialog::getOpenFileName(this, "Choose database to be loaded!",dir.absolutePath(),"*.db");
     ui->VALAMIKELL->setText(MyConfig::APPLICATION_LOCATION+"/databases/");
     if (!file_path.isEmpty())
         {
             MyConfig::DB_URL = file_path;
-            bool db_ok = dbc.connectToDatabase(file_path);
-            QMessageBox msgBox;
-            if(!db_ok){
-                msgBox.setText("Error connecting to sqlite database: " + MyConfig::DB_URL);
-                msgBox.exec();
-            }
-            else{
-                msgBox.setText("Connected to sqlite database: " + file_path);
-                msgBox.exec();
-            }
         }
 }
 
@@ -59,14 +52,14 @@ void MainWindow::on_actionCreate_database_triggered()
     QFile file(strFile);
     file.open(QIODevice::WriteOnly);
     file.close();
-    dbc.connectToDatabase(strFile);
+    MyConfig::DB_URL = strFile;
     dbc.createSchema();
 }
 
 
 void MainWindow::on_actionAdd_Expenditure_triggered()
 {
-    aedf.setAttribute(Qt::WA_DeleteOnClose);
+    aedf.setAttribute(Qt::WA_QuitOnClose);
     aedf.show();
 }
 

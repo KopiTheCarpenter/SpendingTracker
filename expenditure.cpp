@@ -63,14 +63,3 @@ void Expenditure::setAmount(uint newAmount)
 {
     amount = newAmount;
 }
-
-QString Expenditure::toInstertString()
-{
-    QString ret;
-    ret.append("'"+this->getName()+"',");
-    ret.append("'"+this->getItemType()+"',");
-    ret.append("'"+this->getAmountDescription()+"',");
-    ret.append(QString::number(this->getValue())+",");
-    ret.append(QString::number(this->getAmount()));
-    return ret;
-}

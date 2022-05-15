@@ -12,7 +12,7 @@ private:
 public:
     DatabaseController();
     ~DatabaseController();
-    bool connectToDatabase(QString file_path);
+    bool connectToDatabase();
     void closeDatabase();
     bool createSchema();
     bool addExpenditure(Expenditure exp);

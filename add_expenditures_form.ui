@@ -26,7 +26,7 @@
    <string>Form</string>
   </property>
   <property name="toolTip">
-   <string>Neccessity, food, cleaning product, toy, other...</string>
+   <string/>
   </property>
   <layout class="QFormLayout" name="formLayout_2">
    <item row="0" column="0">
@@ -41,6 +41,9 @@
    </item>
    <item row="1" column="0">
     <widget class="QLabel" name="itemTypeLabel">
+     <property name="toolTip">
+      <string>Neccessity, food, cleaning product, toy, other...</string>
+     </property>
      <property name="text">
       <string>Item Type</string>
      </property>
@@ -82,13 +85,6 @@
    <item row="4" column="1">
     <widget class="QLineEdit" name="valueLineEdit"/>
    </item>
-   <item row="5" column="1">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Close|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
    <item row="5" column="0">
     <spacer name="horizontalSpacer">
      <property name="orientation">
@@ -101,6 +97,24 @@
       </size>
      </property>
     </spacer>
+   </item>
+   <item row="5" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="btn_OK">
+       <property name="text">
+        <string>OK</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_Close">
+       <property name="text">
+        <string>Close</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>
