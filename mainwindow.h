@@ -28,7 +28,6 @@ private slots:
     void on_actionCreate_database_triggered();
 
     void on_actionAdd_Expenditure_triggered();
-
 private:
     Ui::MainWindow *ui;
 

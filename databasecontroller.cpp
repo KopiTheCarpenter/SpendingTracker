@@ -45,14 +45,6 @@ bool DatabaseController::addExpenditure(Expenditure exp)
     connectToDatabase();
     if(db.isOpen()){
         QSqlQuery query;
-        /*query.prepare("insert into expenditures (name, item_type, amount_description, value,amount)"
-                   "values(:name, :item_type, :amount_description, :value, :amount);");
-        query.bindValue("name",exp.getName());
-        query.bindValue("item_type",exp.getItemType());
-        query.bindValue("amount_description",exp.getAmountDescription());
-        query.bindValue("value",exp.getValue());
-        query.bindValue("amount",exp.getAmount());
-        */
         query.prepare("insert into expenditures (name, item_type, amount_description, value,amount)"
                       "values (?, ?, ?, ?, ?)");
         query.addBindValue(exp.getName());
@@ -60,7 +52,6 @@ bool DatabaseController::addExpenditure(Expenditure exp)
         query.addBindValue(exp.getAmountDescription());
         query.addBindValue(exp.getValue());
         query.addBindValue(exp.getAmount());
-        //return query.exe();
         if(query.exec()){
             return true;
         }
@@ -70,7 +61,6 @@ bool DatabaseController::addExpenditure(Expenditure exp)
             qDebug() << query.lastQuery();
             return false;
         }
-
     }
     else{
         qDebug("Failed to open database.");
@@ -81,7 +71,7 @@ bool DatabaseController::addExpenditure(Expenditure exp)
 
 Expenditure *DatabaseController::listExpenditures()
 {
-    //connectToDatabase();
+    connectToDatabase();
     QSqlQuery query;
         int numRows;
         query.exec("SELECT * FROM expenditures");
@@ -106,6 +96,6 @@ Expenditure *DatabaseController::listExpenditures()
                 expenditures[i] = exp;
                 i++;
             }
-        //closeDatabase();
+        closeDatabase();
         return expenditures;
 }
