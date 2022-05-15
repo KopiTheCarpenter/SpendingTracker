@@ -28,6 +28,9 @@ void List_Expenditures_form::showEvent(QShowEvent *event){
     model->setHeaderData(3,Qt::Horizontal, tr("amount_description"));
     model->setHeaderData(4,Qt::Horizontal, tr("value"));
     model->setHeaderData(5,Qt::Horizontal, tr("amount"));
+    model->setHeaderData(6,Qt::Horizontal, tr("year"));
+    model->setHeaderData(7,Qt::Horizontal, tr("month"));
+    model->setHeaderData(8,Qt::Horizontal, tr("day"));
     ui->tableView->setModel(model);
     dbc.closeDatabase();
 }

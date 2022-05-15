@@ -30,7 +30,7 @@ bool DatabaseController::createSchema(){
     connectToDatabase();
     if(db.isOpen()){
         QSqlQuery query;
-        query.exec("create table expenditures (id integer primary key, name varchar(50), item_type varchar(50), amount_description varchar(50), value int, amount int)");
+        query.exec("create table expenditures (id integer primary key, name varchar(50), item_type varchar(50), amount_description varchar(50), value int, amount int, year int, month int, day int)");
         return true;
     }
     else{
@@ -45,13 +45,16 @@ bool DatabaseController::addExpenditure(Expenditure exp)
     connectToDatabase();
     if(db.isOpen()){
         QSqlQuery query;
-        query.prepare("insert into expenditures (name, item_type, amount_description, value,amount)"
-                      "values (?, ?, ?, ?, ?)");
+        query.prepare("insert into expenditures (name, item_type, amount_description, value, amount, year, month, day)"
+                      "values (?, ?, ?, ?, ?, ?, ?, ?)");
         query.addBindValue(exp.getName());
         query.addBindValue(exp.getItemType());
         query.addBindValue(exp.getAmountDescription());
         query.addBindValue(exp.getValue());
         query.addBindValue(exp.getAmount());
+        query.addBindValue(exp.getYear());
+        query.addBindValue(exp.getMonth());
+        query.addBindValue(exp.getDay());
         if(query.exec()){
             return true;
         }
